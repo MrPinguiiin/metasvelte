@@ -2,7 +2,7 @@
 	import { SeoHead, seoStore } from '$lib/index.js';
 	import { onMount } from 'svelte';
 
-	let currentSeo = $state('default');
+	let currentSeo = $state<'default' | 'article' | 'product'>('default');
 	let customTitle = $state('Custom Page Title');
 	let customDescription = $state('Custom page description');
 
@@ -40,9 +40,9 @@
 		}
 	};
 
-	const activeSeo = $derived(seoConfigs[currentSeo]);
+	const activeSeo = $derived(seoConfigs[currentSeo as keyof typeof seoConfigs]);
 
-	function updateSeo(type: string) {
+	function updateSeo(type: keyof typeof seoConfigs) {
 		currentSeo = type;
 	}
 
