@@ -163,7 +163,7 @@ export type SchemaType =
 export interface JsonLdSchema {
 	'@context'?: string;
 	'@type': SchemaType | string;
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 // Complete SEO Config
@@ -196,7 +196,7 @@ export interface LinkTag {
 }
 
 // Route-specific SEO Config dengan Generic Support
-export interface RouteSeoConfig<T = any> extends SeoConfig {
+export interface RouteSeoConfig<T = unknown> extends SeoConfig {
 	template?: (data: T) => Partial<SeoConfig>;
 }
 

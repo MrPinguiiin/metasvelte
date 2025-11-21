@@ -2,19 +2,12 @@
  * Utility functions untuk SEO meta generation
  */
 
-import type {
-	SeoConfig,
-	RobotsConfig,
-	OpenGraphImage,
-	MetaTag,
-	LinkTag,
-	JsonLdSchema
-} from './types.js';
+import type { SeoConfig, RobotsConfig, MetaTag, LinkTag, JsonLdSchema } from './types.js';
 
 /**
  * Deep merge dua objects
  */
-export function deepMerge<T extends Record<string, any>>(target: T, source: Partial<T>): T {
+export function deepMerge<T extends Record<string, unknown>>(target: T, source: Partial<T>): T {
 	const result = { ...target };
 
 	for (const key in source) {
@@ -24,7 +17,8 @@ export function deepMerge<T extends Record<string, any>>(target: T, source: Part
 		if (sourceValue === undefined) continue;
 
 		if (isObject(sourceValue) && isObject(targetValue)) {
-			result[key] = deepMerge(targetValue, sourceValue);
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			result[key] = deepMerge(targetValue as any, sourceValue as any) as T[Extract<keyof T, string>];
 		} else {
 			result[key] = sourceValue as T[Extract<keyof T, string>];
 		}
@@ -33,8 +27,8 @@ export function deepMerge<T extends Record<string, any>>(target: T, source: Part
 	return result;
 }
 
-function isObject(item: any): item is Record<string, any> {
-	return item && typeof item === 'object' && !Array.isArray(item);
+function isObject(item: unknown): item is Record<string, unknown> {
+	return item !== null && typeof item === 'object' && !Array.isArray(item);
 }
 
 /**
@@ -73,17 +67,8 @@ export function generateMetaTags(config: SeoConfig): MetaTag[] {
 
 	// Base meta tags
 	if (config.base) {
-		const {
-			title,
-			description,
-			keywords,
-			author,
-			robots,
-			viewport,
-			charset,
-			language,
-			themeColor
-		} = config.base;
+		const { description, keywords, author, robots, viewport, charset, language, themeColor } =
+			config.base;
 
 		if (description) tags.push({ name: 'description', content: description });
 		if (keywords) tags.push({ name: 'keywords', content: keywordsToString(keywords) });

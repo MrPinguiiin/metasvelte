@@ -18,11 +18,11 @@ Library SEO meta management yang **powerful**, **type-safe**, dan **modular** un
 ## 📦 Instalasi
 
 ```bash
+bun add metasvelte
+# atau
 npm install metasvelte
 # atau
 pnpm add metasvelte
-# atau
-bun add metasvelte
 ```
 
 ## 🚀 Quick Start

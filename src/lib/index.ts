@@ -68,3 +68,6 @@ export {
 	robotsPresets,
 	socialPresets
 } from './presets.js';
+
+// Type augmentation (import this to extend App.Locals)
+import './app.d.ts';
