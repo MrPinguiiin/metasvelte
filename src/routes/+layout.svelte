@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SeoHead, seoStore, createSeoConfig } from '$lib/index.js';
+	import { seoStore, createSeoConfig } from '$lib/index.js';
 
 	// Set default SEO config untuk seluruh aplikasi
 	const defaultSeo = createSeoConfig({
@@ -24,12 +24,10 @@
 		}
 	});
 
-	// Set default config di store
+	// Set default config di store (tidak perlu render SeoHead di sini)
 	seoStore.setDefault(defaultSeo);
 
 	let { children } = $props();
 </script>
-
-<SeoHead />
 
 {@render children()}

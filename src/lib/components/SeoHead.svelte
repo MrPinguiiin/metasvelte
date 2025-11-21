@@ -4,12 +4,7 @@
 	 * Komponen utama untuk render semua SEO meta tags
 	 */
 	import type { SeoConfig } from '../types.js';
-	import { 
-		generateMetaTags, 
-		generateLinkTags, 
-		generateJsonLd,
-		sanitizeAttribute 
-	} from '../utils.js';
+	import { generateMetaTags, generateLinkTags, generateJsonLd } from '../utils.js';
 	import { seoStore } from '../seo-store.svelte.js';
 
 	interface Props {
@@ -38,35 +33,45 @@
 	const jsonLdScript = $derived(
 		currentConfig.jsonLd ? generateJsonLd(currentConfig.jsonLd) : null
 	);
+
+	const metaTagsHtml = $derived.by(() => {
+		let html = '';
+
+		if (title) {
+			html += '<title>' + title + '</title>\n';
+		}
+
+		// Meta tags
+		for (const tag of metaTags) {
+			if (tag.name) {
+				html += '<meta name="' + tag.name + '" content="' + tag.content + '">\n';
+			} else if (tag.property) {
+				html += '<meta property="' + tag.property + '" content="' + tag.content + '">\n';
+			} else if (tag.httpEquiv) {
+				html += '<meta http-equiv="' + tag.httpEquiv + '" content="' + tag.content + '">\n';
+			}
+		}
+
+		// Link tags
+		for (const link of linkTags) {
+			let linkHtml = '<link rel="' + link.rel + '" href="' + link.href + '"';
+			if (link.hreflang) linkHtml += ' hreflang="' + link.hreflang + '"';
+			if (link.type) linkHtml += ' type="' + link.type + '"';
+			if (link.sizes) linkHtml += ' sizes="' + link.sizes + '"';
+			if (link.media) linkHtml += ' media="' + link.media + '"';
+			linkHtml += '>\n';
+			html += linkHtml;
+		}
+
+		// JSON-LD
+		if (jsonLdScript) {
+			html += '<script type="application/ld+json">' + jsonLdScript + '</scr' + 'ipt>\n';
+		}
+
+		return html;
+	});
 </script>
 
 <svelte:head>
-	{#if title}
-		<title>{title}</title>
-	{/if}
-
-	{#each metaTags as tag}
-		{#if tag.name}
-			<meta name={tag.name} content={tag.content} />
-		{:else if tag.property}
-			<meta property={tag.property} content={tag.content} />
-		{:else if tag.httpEquiv}
-			<meta http-equiv={tag.httpEquiv as any} content={tag.content} />
-		{/if}
-	{/each}
-
-	{#each linkTags as link}
-		<link 
-			rel={link.rel} 
-			href={link.href}
-			{...(link.hreflang && { hreflang: link.hreflang })}
-			{...(link.type && { type: link.type })}
-			{...(link.sizes && { sizes: link.sizes })}
-			{...(link.media && { media: link.media })}
-		/>
-	{/each}
-
-	{#if jsonLdScript}
-		{@html `<script type="application/ld+json">${jsonLdScript}</script>`}
-	{/if}
+	{@html metaTagsHtml}
 </svelte:head>
