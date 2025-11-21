@@ -92,15 +92,17 @@ bun add metasvelte
 
 	let { data }: { data: PageData } = $props();
 
-	const seo = $derived(createArticleSeo({
-		title: data.post.title,
-		description: data.post.excerpt,
-		url: `https://myblog.com/posts/${data.post.slug}`,
-		image: data.post.coverImage,
-		author: data.post.author,
-		publishedTime: data.post.publishedAt,
-		tags: data.post.tags
-	}));
+	const seo = $derived(
+		createArticleSeo({
+			title: data.post.title,
+			description: data.post.excerpt,
+			url: `https://myblog.com/posts/${data.post.slug}`,
+			image: data.post.coverImage,
+			author: data.post.author,
+			publishedTime: data.post.publishedAt,
+			tags: data.post.tags
+		})
+	);
 </script>
 
 <SeoHead config={seo} />
@@ -145,12 +147,15 @@ const seo = createProductSeo({
 ## 🔧 API Overview
 
 ### Components
+
 - `<SeoHead>` - Komponen utama untuk render meta tags
 
 ### Store
+
 - `seoStore` - Global state management untuk SEO config
 
 ### Helpers
+
 - `createSeoConfig()` - Create SEO config dengan defaults
 - `createArticleSeo()` - Helper untuk artikel/blog
 - `createProductSeo()` - Helper untuk produk e-commerce
@@ -171,7 +176,6 @@ MIT
 ## 🤝 Contributing
 
 Contributions are welcome!
-
 
 ## ❓ FAQ
 
@@ -199,7 +203,6 @@ Pastikan hanya render `<SeoHead>` di page, **bukan** di layout. Layout hanya unt
 <SeoHead config={{ ... }} />
 ```
 
-
 ## 🖥️ Server-Side Rendering (Optional)
 
 Jika Anda ingin HTML yang **100% clean tanpa hydration markers**, gunakan server-side rendering:
@@ -209,17 +212,17 @@ Jika Anda ingin HTML yang **100% clean tanpa hydration markers**, gunakan server
 import { renderSeoTags } from 'metasvelte/server';
 
 export const load = async () => {
-  const seoHtml = renderSeoTags({
-    base: { title: 'My Page', description: '...' }
-  });
-  return { seoHtml };
+	const seoHtml = renderSeoTags({
+		base: { title: 'My Page', description: '...' }
+	});
+	return { seoHtml };
 };
 ```
 
 ```svelte
 <!-- +page.svelte -->
 <svelte:head>
-  {@html data.seoHtml}
+	{@html data.seoHtml}
 </svelte:head>
 ```
 

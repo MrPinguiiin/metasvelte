@@ -10,12 +10,12 @@
 
 <div class="container">
 	<h1>Server-Side SEO Example</h1>
-	
+
 	<div class="info-box">
 		<h2>✨ HTML Super Clean</h2>
 		<p>
-			Halaman ini menggunakan <code>renderSeoTags()</code> dari server-side.
-			Meta tags di-render di server tanpa Svelte hydration markers.
+			Halaman ini menggunakan <code>renderSeoTags()</code> dari server-side. Meta tags di-render di server
+			tanpa Svelte hydration markers.
 		</p>
 	</div>
 
@@ -28,16 +28,20 @@
 			</li>
 			<li>
 				<strong>Render di +page.server.ts</strong>
-				<pre><code>export const load = async () => &#123;
+				<pre><code
+						>export const load = async () => &#123;
   const seoHtml = renderSeoTags(&#123; ... &#125;);
   return &#123; seoHtml &#125;;
-&#125;;</code></pre>
+&#125;;</code
+					></pre>
 			</li>
 			<li>
 				<strong>Inject di +page.svelte</strong>
-				<pre><code>&lt;svelte:head&gt;
+				<pre><code
+						>&lt;svelte:head&gt;
   &#123;@html data.seoHtml&#125;
-&lt;/svelte:head&gt;</code></pre>
+&lt;/svelte:head&gt;</code
+					></pre>
 			</li>
 		</ol>
 	</div>
@@ -72,8 +76,8 @@
 			Hydration markers tidak mempengaruhi SEO dan memberikan flexibility yang lebih baik.
 		</p>
 		<p>
-			Gunakan <code>renderSeoTags()</code> hanya jika Anda benar-benar membutuhkan HTML yang
-			100% clean tanpa komentar apapun.
+			Gunakan <code>renderSeoTags()</code> hanya jika Anda benar-benar membutuhkan HTML yang 100% clean
+			tanpa komentar apapun.
 		</p>
 	</div>
 
@@ -89,7 +93,10 @@
 		max-width: 900px;
 		margin: 0 auto;
 		padding: 2rem;
-		font-family: system-ui, -apple-system, sans-serif;
+		font-family:
+			system-ui,
+			-apple-system,
+			sans-serif;
 	}
 
 	h1 {

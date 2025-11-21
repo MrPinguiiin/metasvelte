@@ -1,6 +1,6 @@
 /**
  * MetaSvelte - SEO Meta Management Library untuk SvelteKit
- * 
+ *
  * @packageDocumentation
  */
 
@@ -56,11 +56,7 @@ export {
 } from './utils.js';
 
 // Hooks
-export {
-	createSeoHandle,
-	getCanonicalUrl,
-	getOgImageUrl
-} from './hooks.js';
+export { createSeoHandle, getCanonicalUrl, getOgImageUrl } from './hooks.js';
 
 // Presets
 export {

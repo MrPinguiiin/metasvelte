@@ -1,8 +1,8 @@
 /**
  * MetaSvelte Server Utilities
- * 
+ *
  * Import dari 'metasvelte/server' untuk server-side rendering
- * 
+ *
  * @example
  * ```typescript
  * import { renderSeoTags } from 'metasvelte/server';

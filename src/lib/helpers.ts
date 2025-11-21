@@ -178,21 +178,25 @@ export function createProductSeo(options: {
 			name: options.name,
 			description: options.description,
 			image: images,
-			brand: options.brand ? {
-				'@type': 'Brand',
-				name: options.brand
-			} : undefined,
+			brand: options.brand
+				? {
+						'@type': 'Brand',
+						name: options.brand
+					}
+				: undefined,
 			offers: {
 				'@type': 'Offer',
 				price: options.price,
 				priceCurrency: options.currency,
 				availability: `https://schema.org/${options.availability || 'InStock'}`
 			},
-			aggregateRating: options.rating ? {
-				'@type': 'AggregateRating',
-				ratingValue: options.rating.value,
-				reviewCount: options.rating.count
-			} : undefined
+			aggregateRating: options.rating
+				? {
+						'@type': 'AggregateRating',
+						ratingValue: options.rating.value,
+						reviewCount: options.rating.count
+					}
+				: undefined
 		}
 	});
 }
@@ -237,11 +241,13 @@ export function createOrganizationSeo(options: {
 				url: options.url,
 				logo: options.logo,
 				sameAs: options.socialProfiles,
-				contactPoint: options.contactPoint ? {
-					'@type': 'ContactPoint',
-					telephone: options.contactPoint.telephone,
-					contactType: options.contactPoint.contactType
-				} : undefined
+				contactPoint: options.contactPoint
+					? {
+							'@type': 'ContactPoint',
+							telephone: options.contactPoint.telephone,
+							contactType: options.contactPoint.contactType
+						}
+					: undefined
 			},
 			{
 				'@type': 'WebSite',

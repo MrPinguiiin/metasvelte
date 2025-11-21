@@ -69,7 +69,7 @@ export const robotsPresets = {
 	noIndex: 'noindex, follow' as const,
 	noFollow: 'index, nofollow' as const,
 	none: 'noindex, nofollow' as const,
-	
+
 	// Advanced configs
 	restrictive: {
 		index: false,
@@ -78,7 +78,7 @@ export const robotsPresets = {
 		nosnippet: true,
 		noimageindex: true
 	} as RobotsConfig,
-	
+
 	permissive: {
 		index: true,
 		follow: true,
@@ -98,7 +98,7 @@ export const socialPresets = {
 		app: { card: 'app' as const },
 		player: { card: 'player' as const }
 	},
-	
+
 	openGraph: {
 		website: { type: 'website' as const },
 		article: { type: 'article' as const },

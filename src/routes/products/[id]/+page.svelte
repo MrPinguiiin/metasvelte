@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { SeoHead, createProductSeo } from '$lib/index.js';
-	
+
 	interface PageData {
 		product: {
 			id: string;
@@ -17,20 +17,24 @@
 
 	let { data }: { data: PageData } = $props();
 
-	const seo = $derived(createProductSeo({
-		name: data.product.name,
-		description: data.product.description,
-		url: `https://mystore.com/products/${data.product.id}`,
-		image: data.product.images,
-		price: data.product.price.toString(),
-		currency: 'USD',
-		availability: data.product.inStock ? 'InStock' : 'OutOfStock',
-		brand: data.product.brand,
-		rating: data.product.rating ? {
-			value: data.product.rating,
-			count: data.product.reviewCount
-		} : undefined
-	}));
+	const seo = $derived(
+		createProductSeo({
+			name: data.product.name,
+			description: data.product.description,
+			url: `https://mystore.com/products/${data.product.id}`,
+			image: data.product.images,
+			price: data.product.price.toString(),
+			currency: 'USD',
+			availability: data.product.inStock ? 'InStock' : 'OutOfStock',
+			brand: data.product.brand,
+			rating: data.product.rating
+				? {
+						value: data.product.rating,
+						count: data.product.reviewCount
+					}
+				: undefined
+		})
+	);
 </script>
 
 <SeoHead config={seo} />

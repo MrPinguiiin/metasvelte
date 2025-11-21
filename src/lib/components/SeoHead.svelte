@@ -30,9 +30,7 @@
 	const metaTags = $derived(generateMetaTags(currentConfig));
 	const linkTags = $derived(generateLinkTags(currentConfig));
 	const title = $derived(currentConfig.base?.title || '');
-	const jsonLdScript = $derived(
-		currentConfig.jsonLd ? generateJsonLd(currentConfig.jsonLd) : null
-	);
+	const jsonLdScript = $derived(currentConfig.jsonLd ? generateJsonLd(currentConfig.jsonLd) : null);
 
 	const metaTagsHtml = $derived.by(() => {
 		let html = '';

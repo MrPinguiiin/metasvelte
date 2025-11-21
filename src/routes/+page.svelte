@@ -76,26 +76,17 @@
 		<h1>🚀 MetaSvelte Demo</h1>
 		<p>Library SEO meta management untuk SvelteKit</p>
 	</header>
-	
+
 	<section class="preset-selector">
 		<h2>Pilih Preset SEO</h2>
 		<div class="preset-buttons">
-			<button 
-				class:active={currentSeo === 'minimal'}
-				onclick={() => updateSeo('minimal')}
-			>
+			<button class:active={currentSeo === 'minimal'} onclick={() => updateSeo('minimal')}>
 				📄 Minimal
 			</button>
-			<button 
-				class:active={currentSeo === 'article'}
-				onclick={() => updateSeo('article')}
-			>
+			<button class:active={currentSeo === 'article'} onclick={() => updateSeo('article')}>
 				📝 Article
 			</button>
-			<button 
-				class:active={currentSeo === 'product'}
-				onclick={() => updateSeo('product')}
-			>
+			<button class:active={currentSeo === 'product'} onclick={() => updateSeo('product')}>
 				🛍️ Product
 			</button>
 		</div>
@@ -112,7 +103,7 @@
 						<span>{activeSeo.base.title}</span>
 					</div>
 				{/if}
-				{#each metaTags.filter(t => t.name && !t.name.startsWith('twitter:') && !t.name.startsWith('og:')) as tag}
+				{#each metaTags.filter((t) => t.name && !t.name.startsWith('twitter:') && !t.name.startsWith('og:')) as tag}
 					<div class="meta-item">
 						<code>&lt;meta name="{tag.name}"&gt;</code>
 						<span>{tag.content}</span>
@@ -120,10 +111,10 @@
 				{/each}
 			</div>
 
-			{#if metaTags.some(t => t.property?.startsWith('og:'))}
+			{#if metaTags.some((t) => t.property?.startsWith('og:'))}
 				<div class="meta-group">
 					<h3>Open Graph (Facebook, LinkedIn)</h3>
-					{#each metaTags.filter(t => t.property?.startsWith('og:')) as tag}
+					{#each metaTags.filter((t) => t.property?.startsWith('og:')) as tag}
 						<div class="meta-item">
 							<code>&lt;meta property="{tag.property}"&gt;</code>
 							<span>{tag.content}</span>
@@ -132,10 +123,10 @@
 				</div>
 			{/if}
 
-			{#if metaTags.some(t => t.name?.startsWith('twitter:'))}
+			{#if metaTags.some((t) => t.name?.startsWith('twitter:'))}
 				<div class="meta-group">
 					<h3>Twitter Cards</h3>
-					{#each metaTags.filter(t => t.name?.startsWith('twitter:')) as tag}
+					{#each metaTags.filter((t) => t.name?.startsWith('twitter:')) as tag}
 						<div class="meta-item">
 							<code>&lt;meta name="{tag.name}"&gt;</code>
 							<span>{tag.content}</span>
@@ -198,7 +189,10 @@
 		max-width: 1400px;
 		margin: 0 auto;
 		padding: 2rem;
-		font-family: system-ui, -apple-system, sans-serif;
+		font-family:
+			system-ui,
+			-apple-system,
+			sans-serif;
 	}
 
 	.demo-header {
@@ -221,7 +215,7 @@
 		background: white;
 		padding: 2rem;
 		border-radius: 12px;
-		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 		margin-bottom: 2rem;
 	}
 
@@ -275,7 +269,7 @@
 		background: white;
 		padding: 2rem;
 		border-radius: 12px;
-		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
 
 	h2 {
@@ -352,7 +346,7 @@
 		background: white;
 		padding: 2rem;
 		border-radius: 12px;
-		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
 
 	.tools-grid {

@@ -2,26 +2,28 @@
 	"name": "metasvelte",
 	"version": "1.0.0",
 	"description": "Powerful, type-safe, and modular SEO meta management library for SvelteKit 5",
-	"author": "Your Name",
+	"author": "MrPinguiiin",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/yourusername/metasvelte"
+		"url": "git+https://github.com/MrPinguiiin/metasvelte"
 	},
-	"homepage": "https://github.com/yourusername/metasvelte#readme",
+	"homepage": "https://github.com/MrPinguiiin/metasvelte#readme",
 	"bugs": {
-		"url": "https://github.com/yourusername/metasvelte/issues"
+		"url": "https://github.com/MrPinguiiin/metasvelte/issues"
 	},
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build && npm run prepack",
+		"build": "vite build && npm run package",
 		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''",
-		"prepack": "svelte-kit sync && svelte-package && publint",
+		"package": "svelte-kit sync && svelte-package && publint",
+		"prepublishOnly": "npm run package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+		"test": "npm run check && npm run lint",
+		"pre-publish": "bash scripts/pre-publish.sh"
 	},
 	"files": [
 		"dist",

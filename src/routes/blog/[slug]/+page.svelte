@@ -4,19 +4,21 @@
 	let { data } = $props();
 
 	// Generate SEO config dari data artikel
-	const articleSeo = $derived(createArticleSeo({
-		title: data.article.title,
-		description: data.article.excerpt,
-		url: `https://yoursite.com/blog/${data.article.slug}`,
-		image: data.article.coverImage,
-		author: data.article.author,
-		publishedTime: data.article.publishedAt,
-		modifiedTime: data.article.updatedAt,
-		section: data.article.category,
-		tags: data.article.tags,
-		siteName: 'MetaSvelte Blog',
-		twitterHandle: '@yourhandle'
-	}));
+	const articleSeo = $derived(
+		createArticleSeo({
+			title: data.article.title,
+			description: data.article.excerpt,
+			url: `https://yoursite.com/blog/${data.article.slug}`,
+			image: data.article.coverImage,
+			author: data.article.author,
+			publishedTime: data.article.publishedAt,
+			modifiedTime: data.article.updatedAt,
+			section: data.article.category,
+			tags: data.article.tags,
+			siteName: 'MetaSvelte Blog',
+			twitterHandle: '@yourhandle'
+		})
+	);
 </script>
 
 <SeoHead config={articleSeo} />

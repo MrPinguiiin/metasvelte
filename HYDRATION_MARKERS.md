@@ -17,7 +17,7 @@ Ini adalah **Svelte hydration markers** - komentar yang digunakan Svelte untuk m
 ✅ **Tidak mempengaruhi SEO** - Search engine crawler (Google, Bing) mengabaikan komentar HTML  
 ✅ **Tidak mempengaruhi performa** - Ukurannya sangat kecil  
 ✅ **Tidak terlihat user** - Hanya terlihat di view source  
-✅ **Normal behavior** - Ini adalah cara kerja Svelte SSR  
+✅ **Normal behavior** - Ini adalah cara kerja Svelte SSR
 
 ## Verifikasi SEO
 
@@ -35,18 +35,20 @@ Ini adalah output normal dari MetaSvelte:
 
 ```html
 <head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="./favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <!--1t153bb--><!--vmsyyo-->
-  <title>Your Page Title</title>
-  <meta name="description" content="Your description">
-  <meta name="keywords" content="keyword1, keyword2">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Your Page Title">
-  <meta name="twitter:card" content="summary_large_image">
-  <!----><!---->
+	<meta charset="utf-8" />
+	<link rel="icon" href="./favicon.svg" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!--1t153bb-->
+	<!--vmsyyo-->
+	<title>Your Page Title</title>
+	<meta name="description" content="Your description" />
+	<meta name="keywords" content="keyword1, keyword2" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Your Page Title" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<!---->
+	<!---->
 </head>
 ```
 
@@ -104,26 +106,27 @@ Untuk meta tags yang tidak berubah, render langsung di `app.html`:
 <!-- src/app.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
-	<!-- Static SEO Tags -->
-	<title>My Site</title>
-	<meta name="description" content="Site description">
-	<meta property="og:type" content="website">
-	
-	%sveltekit.head%
-</head>
-<body>
-	%sveltekit.body%
-</body>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Static SEO Tags -->
+		<title>My Site</title>
+		<meta name="description" content="Site description" />
+		<meta property="og:type" content="website" />
+
+		%sveltekit.head%
+	</head>
+	<body>
+		%sveltekit.body%
+	</body>
 </html>
 ```
 
 ### Opsi 3: Terima Komentar (Recommended)
 
 Ini adalah opsi terbaik karena:
+
 - Paling simple
 - Tidak mempengaruhi SEO
 - Mendukung dynamic SEO
@@ -134,6 +137,7 @@ Ini adalah opsi terbaik karena:
 **Komentar hydration adalah normal dan tidak perlu dikhawatirkan.**
 
 Meta tags Anda sudah:
+
 - ✅ Terstruktur dengan baik
 - ✅ Readable oleh search engines
 - ✅ Compatible dengan semua social media platforms

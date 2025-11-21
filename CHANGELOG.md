@@ -5,6 +5,7 @@ All notable changes to MetaSvelte will be documented in this file.
 ## [1.0.0] - 2024-01-15
 
 ### Added
+
 - Initial release
 - Core `SeoHead` component
 - Global `seoStore` for state management

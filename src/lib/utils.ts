@@ -2,22 +2,19 @@
  * Utility functions untuk SEO meta generation
  */
 
-import type { 
-	SeoConfig, 
-	RobotsConfig, 
-	OpenGraphImage, 
-	MetaTag, 
+import type {
+	SeoConfig,
+	RobotsConfig,
+	OpenGraphImage,
+	MetaTag,
 	LinkTag,
-	JsonLdSchema 
+	JsonLdSchema
 } from './types.js';
 
 /**
  * Deep merge dua objects
  */
-export function deepMerge<T extends Record<string, any>>(
-	target: T,
-	source: Partial<T>
-): T {
+export function deepMerge<T extends Record<string, any>>(target: T, source: Partial<T>): T {
 	const result = { ...target };
 
 	for (const key in source) {
@@ -55,7 +52,8 @@ export function robotsToString(robots: string | RobotsConfig): string {
 	if (robots.noimageindex) parts.push('noimageindex');
 	if (robots.maxSnippet !== undefined) parts.push(`max-snippet:${robots.maxSnippet}`);
 	if (robots.maxImagePreview) parts.push(`max-image-preview:${robots.maxImagePreview}`);
-	if (robots.maxVideoPreview !== undefined) parts.push(`max-video-preview:${robots.maxVideoPreview}`);
+	if (robots.maxVideoPreview !== undefined)
+		parts.push(`max-video-preview:${robots.maxVideoPreview}`);
 
 	return parts.join(', ') || 'index, follow';
 }
@@ -75,7 +73,17 @@ export function generateMetaTags(config: SeoConfig): MetaTag[] {
 
 	// Base meta tags
 	if (config.base) {
-		const { title, description, keywords, author, robots, viewport, charset, language, themeColor } = config.base;
+		const {
+			title,
+			description,
+			keywords,
+			author,
+			robots,
+			viewport,
+			charset,
+			language,
+			themeColor
+		} = config.base;
 
 		if (description) tags.push({ name: 'description', content: description });
 		if (keywords) tags.push({ name: 'keywords', content: keywordsToString(keywords) });
@@ -131,7 +139,8 @@ export function generateMetaTags(config: SeoConfig): MetaTag[] {
 					tags.push({ property: 'og:audio', content: audio });
 				} else {
 					tags.push({ property: 'og:audio', content: audio.url });
-					if (audio.secureUrl) tags.push({ property: 'og:audio:secure_url', content: audio.secureUrl });
+					if (audio.secureUrl)
+						tags.push({ property: 'og:audio:secure_url', content: audio.secureUrl });
 					if (audio.type) tags.push({ property: 'og:audio:type', content: audio.type });
 				}
 			});
@@ -145,10 +154,12 @@ export function generateMetaTags(config: SeoConfig): MetaTag[] {
 					tags.push({ property: 'og:video', content: video });
 				} else {
 					tags.push({ property: 'og:video', content: video.url });
-					if (video.secureUrl) tags.push({ property: 'og:video:secure_url', content: video.secureUrl });
+					if (video.secureUrl)
+						tags.push({ property: 'og:video:secure_url', content: video.secureUrl });
 					if (video.type) tags.push({ property: 'og:video:type', content: video.type });
 					if (video.width) tags.push({ property: 'og:video:width', content: String(video.width) });
-					if (video.height) tags.push({ property: 'og:video:height', content: String(video.height) });
+					if (video.height)
+						tags.push({ property: 'og:video:height', content: String(video.height) });
 				}
 			});
 		}
@@ -158,9 +169,12 @@ export function generateMetaTags(config: SeoConfig): MetaTag[] {
 	if (config.article) {
 		const article = config.article;
 
-		if (article.publishedTime) tags.push({ property: 'article:published_time', content: article.publishedTime });
-		if (article.modifiedTime) tags.push({ property: 'article:modified_time', content: article.modifiedTime });
-		if (article.expirationTime) tags.push({ property: 'article:expiration_time', content: article.expirationTime });
+		if (article.publishedTime)
+			tags.push({ property: 'article:published_time', content: article.publishedTime });
+		if (article.modifiedTime)
+			tags.push({ property: 'article:modified_time', content: article.modifiedTime });
+		if (article.expirationTime)
+			tags.push({ property: 'article:expiration_time', content: article.expirationTime });
 		if (article.section) tags.push({ property: 'article:section', content: article.section });
 
 		if (article.author) {
@@ -197,21 +211,30 @@ export function generateMetaTags(config: SeoConfig): MetaTag[] {
 
 		if (tw.imageAlt) tags.push({ name: 'twitter:image:alt', content: tw.imageAlt });
 		if (tw.player) tags.push({ name: 'twitter:player', content: tw.player });
-		if (tw.playerWidth) tags.push({ name: 'twitter:player:width', content: String(tw.playerWidth) });
-		if (tw.playerHeight) tags.push({ name: 'twitter:player:height', content: String(tw.playerHeight) });
+		if (tw.playerWidth)
+			tags.push({ name: 'twitter:player:width', content: String(tw.playerWidth) });
+		if (tw.playerHeight)
+			tags.push({ name: 'twitter:player:height', content: String(tw.playerHeight) });
 		if (tw.playerStream) tags.push({ name: 'twitter:player:stream', content: tw.playerStream });
 
 		// Twitter App
 		if (tw.app) {
-			if (tw.app.name?.iphone) tags.push({ name: 'twitter:app:name:iphone', content: tw.app.name.iphone });
-			if (tw.app.name?.ipad) tags.push({ name: 'twitter:app:name:ipad', content: tw.app.name.ipad });
-			if (tw.app.name?.googleplay) tags.push({ name: 'twitter:app:name:googleplay', content: tw.app.name.googleplay });
-			if (tw.app.id?.iphone) tags.push({ name: 'twitter:app:id:iphone', content: tw.app.id.iphone });
+			if (tw.app.name?.iphone)
+				tags.push({ name: 'twitter:app:name:iphone', content: tw.app.name.iphone });
+			if (tw.app.name?.ipad)
+				tags.push({ name: 'twitter:app:name:ipad', content: tw.app.name.ipad });
+			if (tw.app.name?.googleplay)
+				tags.push({ name: 'twitter:app:name:googleplay', content: tw.app.name.googleplay });
+			if (tw.app.id?.iphone)
+				tags.push({ name: 'twitter:app:id:iphone', content: tw.app.id.iphone });
 			if (tw.app.id?.ipad) tags.push({ name: 'twitter:app:id:ipad', content: tw.app.id.ipad });
-			if (tw.app.id?.googleplay) tags.push({ name: 'twitter:app:id:googleplay', content: tw.app.id.googleplay });
-			if (tw.app.url?.iphone) tags.push({ name: 'twitter:app:url:iphone', content: tw.app.url.iphone });
+			if (tw.app.id?.googleplay)
+				tags.push({ name: 'twitter:app:id:googleplay', content: tw.app.id.googleplay });
+			if (tw.app.url?.iphone)
+				tags.push({ name: 'twitter:app:url:iphone', content: tw.app.url.iphone });
 			if (tw.app.url?.ipad) tags.push({ name: 'twitter:app:url:ipad', content: tw.app.url.ipad });
-			if (tw.app.url?.googleplay) tags.push({ name: 'twitter:app:url:googleplay', content: tw.app.url.googleplay });
+			if (tw.app.url?.googleplay)
+				tags.push({ name: 'twitter:app:url:googleplay', content: tw.app.url.googleplay });
 		}
 	}
 
@@ -260,7 +283,7 @@ export function generateLinkTags(config: SeoConfig): LinkTag[] {
  */
 export function generateJsonLd(schemas: JsonLdSchema | JsonLdSchema[]): string {
 	const schemaArray = Array.isArray(schemas) ? schemas : [schemas];
-	
+
 	const enrichedSchemas = schemaArray.map((schema) => ({
 		'@context': 'https://schema.org',
 		...schema

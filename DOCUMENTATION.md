@@ -107,12 +107,7 @@ const config: SeoConfig = {
 Gunakan helper functions untuk membuat config dengan mudah:
 
 ```typescript
-import { 
-	createBaseSeo, 
-	createOpenGraph, 
-	createTwitterCard,
-	mergeSeoConfigs 
-} from 'metasvelte';
+import { createBaseSeo, createOpenGraph, createTwitterCard, mergeSeoConfigs } from 'metasvelte';
 
 const baseSeo = createBaseSeo({
 	title: 'My Page',
@@ -170,10 +165,12 @@ SEO config bisa disesuaikan di setiap route:
 Komponen utama untuk render SEO meta tags.
 
 **Props:**
+
 - `config?: Partial<SeoConfig>` - SEO configuration
 - `merge?: boolean` - Merge dengan config existing (default: false)
 
 **Contoh:**
+
 ```svelte
 <SeoHead config={mySeoConfig} />
 <SeoHead config={additionalSeo} merge={true} />
@@ -186,6 +183,7 @@ Komponen utama untuk render SEO meta tags.
 Global store untuk manage SEO state.
 
 **Methods:**
+
 - `setDefault(config: SeoConfig)` - Set default SEO config
 - `update(config: Partial<SeoConfig>)` - Update config (replace)
 - `merge(config: Partial<SeoConfig>)` - Merge dengan existing config
@@ -193,6 +191,7 @@ Global store untuk manage SEO state.
 - `getMeta<K>(key: K)` - Get specific meta value
 
 **Contoh:**
+
 ```typescript
 import { seoStore } from 'metasvelte';
 
@@ -275,10 +274,7 @@ const orgSeo = createOrganizationSeo({
 	description: 'Company description',
 	url: 'https://company.com',
 	logo: 'https://company.com/logo.png',
-	socialProfiles: [
-		'https://twitter.com/company',
-		'https://facebook.com/company'
-	],
+	socialProfiles: ['https://twitter.com/company', 'https://facebook.com/company'],
 	contactPoint: {
 		telephone: '+1-234-567-8900',
 		contactType: 'Customer Service'
@@ -291,11 +287,7 @@ const orgSeo = createOrganizationSeo({
 Merge multiple SEO configs.
 
 ```typescript
-const merged = mergeSeoConfigs(
-	defaultConfig,
-	pageConfig,
-	dynamicConfig
-);
+const merged = mergeSeoConfigs(defaultConfig, pageConfig, dynamicConfig);
 ```
 
 ### Types
@@ -371,7 +363,7 @@ interface TwitterMeta {
 Library menyediakan presets untuk use cases umum:
 
 ```typescript
-import { 
+import {
 	defaultSeoPreset,
 	blogPreset,
 	ecommercePreset,
@@ -407,19 +399,21 @@ const twitter = socialPresets.twitter.summaryLargeImage;
 
 	let { data }: { data: PageData } = $props();
 
-	const seo = $derived(createArticleSeo({
-		title: data.post.title,
-		description: data.post.excerpt,
-		url: `https://myblog.com/posts/${data.post.slug}`,
-		image: data.post.coverImage,
-		author: data.post.author.name,
-		publishedTime: data.post.publishedAt,
-		modifiedTime: data.post.updatedAt,
-		section: data.post.category,
-		tags: data.post.tags,
-		siteName: 'My Awesome Blog',
-		twitterHandle: '@myblog'
-	}));
+	const seo = $derived(
+		createArticleSeo({
+			title: data.post.title,
+			description: data.post.excerpt,
+			url: `https://myblog.com/posts/${data.post.slug}`,
+			image: data.post.coverImage,
+			author: data.post.author.name,
+			publishedTime: data.post.publishedAt,
+			modifiedTime: data.post.updatedAt,
+			section: data.post.category,
+			tags: data.post.tags,
+			siteName: 'My Awesome Blog',
+			twitterHandle: '@myblog'
+		})
+	);
 </script>
 
 <SeoHead config={seo} />
@@ -439,20 +433,22 @@ const twitter = socialPresets.twitter.summaryLargeImage;
 
 	let { data }: { data: PageData } = $props();
 
-	const seo = $derived(createProductSeo({
-		name: data.product.name,
-		description: data.product.description,
-		url: `https://mystore.com/products/${data.product.id}`,
-		image: data.product.images,
-		price: data.product.price.toString(),
-		currency: 'USD',
-		availability: data.product.inStock ? 'InStock' : 'OutOfStock',
-		brand: data.product.brand,
-		rating: {
-			value: data.product.rating,
-			count: data.product.reviewCount
-		}
-	}));
+	const seo = $derived(
+		createProductSeo({
+			name: data.product.name,
+			description: data.product.description,
+			url: `https://mystore.com/products/${data.product.id}`,
+			image: data.product.images,
+			price: data.product.price.toString(),
+			currency: 'USD',
+			availability: data.product.inStock ? 'InStock' : 'OutOfStock',
+			brand: data.product.brand,
+			rating: {
+				value: data.product.rating,
+				count: data.product.reviewCount
+			}
+		})
+	);
 </script>
 
 <SeoHead config={seo} />
@@ -580,7 +576,7 @@ export const load: PageLoad = async ({ params, url }) => {
 		},
 		jsonLd: {
 			'@type': 'FAQPage',
-			mainEntity: faqs.map(faq => ({
+			mainEntity: faqs.map((faq) => ({
 				'@type': 'Question',
 				name: faq.question,
 				acceptedAnswer: {
@@ -660,12 +656,14 @@ Selalu set default SEO config di root layout untuk fallback:
 <script lang="ts">
 	import { seoStore, createSeoConfig } from 'metasvelte';
 
-	seoStore.setDefault(createSeoConfig({
-		base: {
-			title: 'Default Title',
-			description: 'Default description'
-		}
-	}));
+	seoStore.setDefault(
+		createSeoConfig({
+			base: {
+				title: 'Default Title',
+				description: 'Default description'
+			}
+		})
+	);
 </script>
 ```
 
@@ -684,6 +682,7 @@ const seo = {
 ### 3. Optimize Images untuk Social Media
 
 Gunakan ukuran image yang tepat:
+
 - **Open Graph**: 1200x630px
 - **Twitter Summary**: 120x120px minimum
 - **Twitter Large Image**: 280x150px minimum
@@ -722,6 +721,7 @@ const seo = {
 ### 5. Test SEO Tags
 
 Gunakan tools berikut untuk test:
+
 - [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/)
 - [Twitter Card Validator](https://cards-dev.twitter.com/validator)
 - [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/)
@@ -735,7 +735,7 @@ Untuk SEO yang optimal, load data di server:
 // +page.server.ts
 export const load: PageServerLoad = async ({ params }) => {
 	const data = await fetchData(params.id);
-	
+
 	return {
 		data,
 		seo: generateSeoFromData(data)
