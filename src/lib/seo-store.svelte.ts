@@ -1,8 +1,3 @@
-/**
- * Svelte 5 Runes-based SEO Store
- * Global state management untuk SEO configuration
- */
-
 import type { SeoConfig } from './types.js';
 import { deepMerge } from './utils.js';
 
@@ -31,14 +26,20 @@ class SeoStore {
 	 * Update SEO config (replace)
 	 */
 	update(config: Partial<SeoConfig>): void {
-		this.currentConfig = deepMerge(this.defaultConfig, config);
+		this.currentConfig = deepMerge(
+			this.defaultConfig as Record<string, unknown>,
+			config as Partial<Record<string, unknown>>
+		) as SeoConfig;
 	}
 
 	/**
 	 * Merge SEO config dengan existing config
 	 */
 	merge(config: Partial<SeoConfig>): void {
-		this.currentConfig = deepMerge(this.currentConfig, config);
+		this.currentConfig = deepMerge(
+			this.currentConfig as Record<string, unknown>,
+			config as Partial<Record<string, unknown>>
+		) as SeoConfig;
 	}
 
 	/**
