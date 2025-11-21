@@ -1,0 +1,12 @@
+src/routes/
+.svelte-kit/
+node_modules/
+.vscode/
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
+DOCUMENTATION.md
+EXAMPLES_ADVANCED.md
+CHANGELOG.md

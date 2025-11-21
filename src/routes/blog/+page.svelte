@@ -8,7 +8,7 @@
 			canonical: 'https://yoursite.com/blog'
 		},
 		openGraph: {
-			type: 'website',
+			type: 'website' as const,
 			title: 'Blog - MetaSvelte',
 			url: 'https://yoursite.com/blog'
 		}

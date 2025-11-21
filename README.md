@@ -1,58 +1,173 @@
-# Svelte library
+# MetaSvelte 🚀
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
+Library SEO meta management yang **powerful**, **type-safe**, dan **modular** untuk SvelteKit 5.
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+[![npm version](https://img.shields.io/npm/v/metasvelte.svg)](https://www.npmjs.com/package/metasvelte)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Creating a project
+## ✨ Fitur
 
-If you're seeing this, you've probably already done this step. Congrats!
+- 🎯 **Type-Safe** - Full TypeScript support dengan type inference
+- 🧩 **Modular** - Composable helpers untuk berbagai use cases
+- 🔄 **Dinamis** - SEO config bisa disesuaikan per route
+- 🌐 **Multi-Platform** - Support Open Graph, Twitter Cards, Facebook, LinkedIn
+- 📊 **JSON-LD** - Built-in support untuk structured data
+- ⚡ **Svelte 5 Runes** - Menggunakan Svelte 5 reactive system
+- 🎨 **Presets** - Pre-configured templates untuk use cases umum
 
-```sh
-# create a new project in the current directory
-npx sv create
+## 📦 Instalasi
 
-# create a new project in my-app
-npx sv create my-app
+```bash
+npm install metasvelte
+# atau
+pnpm add metasvelte
+# atau
+bun add metasvelte
 ```
 
-## Developing
+## 🚀 Quick Start
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### 1. Setup di Root Layout
 
-```sh
-npm run dev
+```svelte
+<!-- src/routes/+layout.svelte -->
+<script lang="ts">
+	import { SeoHead, seoStore, createSeoConfig } from 'metasvelte';
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+	const defaultSeo = createSeoConfig({
+		base: {
+			title: 'My Awesome Site',
+			description: 'Deskripsi website Anda',
+			keywords: ['sveltekit', 'seo']
+		},
+		openGraph: {
+			type: 'website',
+			siteName: 'My Awesome Site'
+		},
+		twitter: {
+			card: 'summary_large_image',
+			site: '@yourhandle'
+		}
+	});
+
+	seoStore.setDefault(defaultSeo);
+
+	let { children } = $props();
+</script>
+
+<SeoHead />
+{@render children()}
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+### 2. Override di Halaman Spesifik
 
-## Building
+```svelte
+<!-- src/routes/about/+page.svelte -->
+<script lang="ts">
+	import { SeoHead } from 'metasvelte';
 
-To build your library:
+	const aboutSeo = {
+		base: {
+			title: 'About Us - My Awesome Site',
+			description: 'Tentang kami dan misi kami',
+			canonical: 'https://mysite.com/about'
+		},
+		openGraph: {
+			title: 'About Us',
+			url: 'https://mysite.com/about',
+			image: 'https://mysite.com/about-og.jpg'
+		}
+	};
+</script>
 
-```sh
-npm pack
+<SeoHead config={aboutSeo} />
 ```
 
-To create a production version of your showcase app:
+### 3. Dynamic SEO untuk Blog Post
 
-```sh
-npm run build
+```svelte
+<script lang="ts">
+	import { SeoHead, createArticleSeo } from 'metasvelte';
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
+
+	const seo = $derived(createArticleSeo({
+		title: data.post.title,
+		description: data.post.excerpt,
+		url: `https://myblog.com/posts/${data.post.slug}`,
+		image: data.post.coverImage,
+		author: data.post.author,
+		publishedTime: data.post.publishedAt,
+		tags: data.post.tags
+	}));
+</script>
+
+<SeoHead config={seo} />
 ```
 
-You can preview the production build with `npm run preview`.
+## 📚 Dokumentasi Lengkap
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Lihat [DOCUMENTATION.md](./DOCUMENTATION.md) untuk dokumentasi lengkap.
 
-## Publishing
+## 🎯 Use Cases
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+### Blog/Article
 
-To publish your library to [npm](https://www.npmjs.com):
+```typescript
+import { createArticleSeo } from 'metasvelte';
 
-```sh
-npm publish
+const seo = createArticleSeo({
+	title: 'Article Title',
+	description: 'Article description',
+	url: 'https://site.com/article',
+	image: 'https://site.com/image.jpg',
+	author: 'John Doe',
+	publishedTime: '2024-01-15T10:00:00Z'
+});
 ```
+
+### E-commerce Product
+
+```typescript
+import { createProductSeo } from 'metasvelte';
+
+const seo = createProductSeo({
+	name: 'Product Name',
+	description: 'Product description',
+	url: 'https://site.com/product',
+	image: 'https://site.com/product.jpg',
+	price: '99.99',
+	currency: 'USD'
+});
+```
+
+## 🔧 API Overview
+
+### Components
+- `<SeoHead>` - Komponen utama untuk render meta tags
+
+### Store
+- `seoStore` - Global state management untuk SEO config
+
+### Helpers
+- `createSeoConfig()` - Create SEO config dengan defaults
+- `createArticleSeo()` - Helper untuk artikel/blog
+- `createProductSeo()` - Helper untuk produk e-commerce
+- `createOrganizationSeo()` - Helper untuk organization
+- `mergeSeoConfigs()` - Merge multiple configs
+
+## 🧪 Testing SEO
+
+- [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/)
+- [Twitter Card Validator](https://cards-dev.twitter.com/validator)
+- [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/)
+- [Google Rich Results Test](https://search.google.com/test/rich-results)
+
+## 📝 License
+
+MIT
+
+## 🤝 Contributing
+
+Contributions are welcome!

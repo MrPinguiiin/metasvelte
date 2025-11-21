@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { SeoHead, createArticleSeo } from '$lib/index.js';
-	import type { PageData } from './$types.js';
 
-	let { data }: { data: PageData } = $props();
+	let { data } = $props();
 
 	// Generate SEO config dari data artikel
 	const articleSeo = $derived(createArticleSeo({

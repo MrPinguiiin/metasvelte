@@ -1,6 +1,17 @@
 {
 	"name": "metasvelte",
-	"version": "0.0.1",
+	"version": "1.0.0",
+	"description": "Powerful, type-safe, and modular SEO meta management library for SvelteKit 5",
+	"author": "Your Name",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yourusername/metasvelte"
+	},
+	"homepage": "https://github.com/yourusername/metasvelte#readme",
+	"bugs": {
+		"url": "https://github.com/yourusername/metasvelte/issues"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run prepack",
@@ -57,6 +68,19 @@
 		"vite": "^7.1.10"
 	},
 	"keywords": [
-		"svelte"
+		"svelte",
+		"sveltekit",
+		"seo",
+		"meta",
+		"meta-tags",
+		"open-graph",
+		"twitter-cards",
+		"facebook",
+		"linkedin",
+		"json-ld",
+		"structured-data",
+		"social-media",
+		"og",
+		"typescript"
 	]
 }

@@ -47,11 +47,11 @@
 
 	{#each metaTags as tag}
 		{#if tag.name}
-			<meta name={sanitizeAttribute(tag.name)} content={sanitizeAttribute(tag.content)} />
+			<meta name={tag.name} content={tag.content} />
 		{:else if tag.property}
-			<meta property={sanitizeAttribute(tag.property)} content={sanitizeAttribute(tag.content)} />
+			<meta property={tag.property} content={tag.content} />
 		{:else if tag.httpEquiv}
-			<meta http-equiv={sanitizeAttribute(tag.httpEquiv)} content={sanitizeAttribute(tag.content)} />
+			<meta http-equiv={tag.httpEquiv as any} content={tag.content} />
 		{/if}
 	{/each}
 
