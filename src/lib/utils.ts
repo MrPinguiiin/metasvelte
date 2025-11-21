@@ -18,7 +18,10 @@ export function deepMerge<T extends Record<string, unknown>>(target: T, source: 
 
 		if (isObject(sourceValue) && isObject(targetValue)) {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			result[key] = deepMerge(targetValue as any, sourceValue as any) as T[Extract<keyof T, string>];
+			result[key] = deepMerge(targetValue as any, sourceValue as any) as T[Extract<
+				keyof T,
+				string
+			>];
 		} else {
 			result[key] = sourceValue as T[Extract<keyof T, string>];
 		}

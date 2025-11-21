@@ -3,7 +3,7 @@
  * Untuk render meta tags tanpa Svelte hydration markers
  */
 
-import type { SeoConfig, MetaTag, LinkTag } from '../types.js';
+import type { SeoConfig } from '../types.js';
 import { generateMetaTags, generateLinkTags, generateJsonLd } from '../utils.js';
 
 /**
