@@ -171,3 +171,56 @@ MIT
 ## 🤝 Contributing
 
 Contributions are welcome!
+
+
+## ❓ FAQ
+
+### Kenapa ada komentar `<!--1t153bb-->` di HTML?
+
+Ini adalah **Svelte hydration markers** dan **tidak mempengaruhi SEO**. Search engine crawler (Google, Facebook, Twitter) mengabaikan komentar HTML ini. Meta tags Anda tetap terbaca dengan sempurna.
+
+Lihat [HYDRATION_MARKERS.md](./HYDRATION_MARKERS.md) untuk penjelasan lengkap.
+
+### Apakah meta tags duplikat?
+
+Pastikan hanya render `<SeoHead>` di page, **bukan** di layout. Layout hanya untuk set default config:
+
+```svelte
+<!-- +layout.svelte - HANYA set default -->
+<script>
+  import { seoStore, createSeoConfig } from 'metasvelte';
+  seoStore.setDefault(createSeoConfig({ ... }));
+</script>
+
+<!-- +page.svelte - Render SeoHead -->
+<script>
+  import { SeoHead } from 'metasvelte';
+</script>
+<SeoHead config={{ ... }} />
+```
+
+
+## 🖥️ Server-Side Rendering (Optional)
+
+Jika Anda ingin HTML yang **100% clean tanpa hydration markers**, gunakan server-side rendering:
+
+```typescript
+// +page.server.ts
+import { renderSeoTags } from 'metasvelte/server';
+
+export const load = async () => {
+  const seoHtml = renderSeoTags({
+    base: { title: 'My Page', description: '...' }
+  });
+  return { seoHtml };
+};
+```
+
+```svelte
+<!-- +page.svelte -->
+<svelte:head>
+  {@html data.seoHtml}
+</svelte:head>
+```
+
+Lihat `/server-example` untuk demo lengkap.
